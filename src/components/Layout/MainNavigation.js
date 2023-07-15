@@ -1,24 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import classes from './MainNavigation.module.css';
+import classes from "./MainNavigation.module.css";
+import { useContext } from "react";
+import { myContext } from "../../Context";
 
 const MainNavigation = () => {
+  const { token, setToken } = useContext(myContext);
   return (
     <header className={classes.header}>
-      <Link to='/'>
+      <Link to="/">
         <div className={classes.logo}>React Auth</div>
       </Link>
       <nav>
         <ul>
+          {token ? (
+            ""
+          ) : (
+            <li>
+              <Link to="/auth">Login</Link>
+            </li>
+          )}
           <li>
-            <Link to='/auth'>Login</Link>
+            <Link to="/profile">Profile</Link>
           </li>
-          <li>
-            <Link to='/profile'>Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          {token ? (
+            <li>
+              <button onClick={() => setToken("")}>Logout</button>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </nav>
     </header>

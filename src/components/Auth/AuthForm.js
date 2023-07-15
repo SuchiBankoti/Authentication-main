@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
-
+import { useContext, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import classes from "./AuthForm.module.css";
-const signUPapi =
-  "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDvMhMxDWfRmYEbmRy4ORKoiOLsxpVokq0";
-const signINapi =
-  "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDvMhMxDWfRmYEbmRy4ORKoiOLsxpVokq0";
+import { myContext } from "../../Context";
+const signUPapi = process.env.REACT_APP_SIGN_UP_API_KEY;
+const signINapi = process.env.REACT_APP_SIGN_IN_API_KEY;
 const AuthForm = () => {
+  const { token, setToken } = useContext(myContext);
   const [isLogin, setIsLogin] = useState(true);
   const [req, setReq] = useState(false);
   const emailInputRef = useRef();
@@ -16,8 +16,6 @@ const AuthForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     setReq(true);
-    // get data from input then check if its in login mode or new account and send post req accordingly
-    // post request with headers and body with dtails and a key
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
     if (isLogin) {
@@ -35,6 +33,7 @@ const AuthForm = () => {
         setReq(false);
         if (res.ok) {
           alert("USER LOGGED IN");
+          res.json().then((data) => setToken(data.idToken));
         } else {
           return res.json().then((data) => {
             let errMsg = "Authenticaton Failed";
@@ -92,7 +91,11 @@ const AuthForm = () => {
         {req ? <p style={{ color: "white" }}>Sending request...</p> : ""}
         <div className={classes.actions}>
           <button onClick={handleSubmit}>
-            {isLogin ? "Login" : "Register"}
+            {isLogin ? (
+              <Link to="/profile">Login</Link>
+            ) : (
+              <Link to="/">Register</Link>
+            )}
           </button>
         </div>
         <div className={classes.actions}>
