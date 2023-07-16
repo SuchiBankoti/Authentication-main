@@ -19,7 +19,7 @@ const AuthForm = () => {
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
     if (isLogin) {
-      fetch(`${signINapi}`, {
+      fetch(signINapi, {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -45,7 +45,7 @@ const AuthForm = () => {
         }
       });
     } else {
-      fetch(`${signUPapi}`, {
+      fetch(signUPapi, {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -59,6 +59,7 @@ const AuthForm = () => {
         setReq(false);
         if (res.ok) {
           alert("ACCOUNT CREATED");
+          res.json().then((data) => setToken(data.idToken));
         } else {
           return res.json().then((data) => {
             let errMsg = "Authenticaton Failed";
