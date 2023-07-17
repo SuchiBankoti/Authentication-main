@@ -25,7 +25,10 @@ const MainNavigation = () => {
           </li>
           {token ? (
             <li>
-              <button onClick={() => setToken("")}>Logout</button>
+              <button onClick={() => setToken("")}>
+                {" "}
+                <Link to="/auth">Logout</Link>
+              </button>
             </li>
           ) : (
             ""
