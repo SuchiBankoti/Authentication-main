@@ -93,9 +93,9 @@ const AuthForm = () => {
         <div className={classes.actions}>
           <button onClick={handleSubmit}>
             {isLogin ? (
-              <Link to="/profile">Login</Link>
+              <Link to="/Authentication-main/profile">Login</Link>
             ) : (
-              <Link to="/">Register</Link>
+              <Link to="/Authentication-main/">Register</Link>
             )}
           </button>
         </div>

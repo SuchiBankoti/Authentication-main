@@ -8,7 +8,7 @@ const MainNavigation = () => {
   const { token, setToken } = useContext(myContext);
   return (
     <header className={classes.header}>
-      <Link to="/">
+      <Link to="/Authentication-main">
         <div className={classes.logo}>React Auth</div>
       </Link>
       <nav>
@@ -17,17 +17,17 @@ const MainNavigation = () => {
             ""
           ) : (
             <li>
-              <Link to="/auth">Login</Link>
+              <Link to="/Authentication-main/auth">Login</Link>
             </li>
           )}
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/Authentication-main/profile">Profile</Link>
           </li>
           {token ? (
             <li>
               <button onClick={() => setToken("")}>
                 {" "}
-                <Link to="/auth">Logout</Link>
+                <Link to="/Authentication-main/auth">Logout</Link>
               </button>
             </li>
           ) : (
