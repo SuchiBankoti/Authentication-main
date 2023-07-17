@@ -3,7 +3,7 @@ import classes from "./ProfileForm.module.css";
 import { myContext } from "../../Context";
 
 const ProfileForm = () => {
-  const { token, setToken } = useContext(myContext);
+  const { token, saveToLocStr } = useContext(myContext);
   const passRef = useRef();
   const changePassApi = process.env.REACT_APP_CHANGE_PASS_API_KEY;
 
@@ -23,8 +23,8 @@ const ProfileForm = () => {
       },
     }).then((res) => {
       if (res.ok) {
+        res.json().then((data) => saveToLocStr(data.idToken));
         alert("PASSWORD CHNAGED SUCCESSFULY");
-        res.json().then((data) => setToken(data.idToken));
       } else {
         return res.json().then((data) => {
           let errMsg = "Authenticaton Failed";

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { myContext } from "../../Context";
 
 const MainNavigation = () => {
-  const { token, setToken } = useContext(myContext);
+  const { token, removeFromLocStr } = useContext(myContext);
   return (
     <header className={classes.header}>
       <Link to="/Authentication-main">
@@ -25,7 +25,7 @@ const MainNavigation = () => {
           </li>
           {token ? (
             <li>
-              <button onClick={() => setToken("")}>
+              <button onClick={removeFromLocStr}>
                 {" "}
                 <Link to="/Authentication-main/auth">Logout</Link>
               </button>
