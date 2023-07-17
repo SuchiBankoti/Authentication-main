@@ -5,7 +5,7 @@ import { myContext } from "../../Context";
 const signUPapi = process.env.REACT_APP_SIGN_UP_API_KEY;
 const signINapi = process.env.REACT_APP_SIGN_IN_API_KEY;
 const AuthForm = () => {
-  const { saveToLocStr } = useContext(myContext);
+  const { saveToLocStr, removeFromLocStr } = useContext(myContext);
   const [isLogin, setIsLogin] = useState(true);
   const [req, setReq] = useState(false);
   const emailInputRef = useRef();
@@ -34,6 +34,9 @@ const AuthForm = () => {
         if (res.ok) {
           res.json().then((data) => saveToLocStr(data.idToken));
           alert("USER LOGGED IN");
+          setTimeout(() => {
+            removeFromLocStr();
+          }, 300000);
         } else {
           return res.json().then((data) => {
             let errMsg = "Authenticaton Failed";
@@ -60,6 +63,9 @@ const AuthForm = () => {
         if (res.ok) {
           res.json().then((data) => saveToLocStr(data.idToken));
           alert("ACCOUNT CREATED");
+          setTimeout(() => {
+            removeFromLocStr();
+          }, 300000);
         } else {
           return res.json().then((data) => {
             let errMsg = "Authenticaton Failed";
